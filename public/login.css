@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: rgb(200, 128, 183);
+    background: linear-gradient(90deg, rgba(200, 128, 183, 1) 0%, rgba(236, 157, 237, 1) 50%, rgba(245, 204, 232, 1) 100%);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 400px;
+    height: 60vh;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.loginTop {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.loginTop>h1 {
+    font-size: 23px;
+    color: #4A2040;
+}
+
+.loginMiddle {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.emailArea,
+.passwordArea {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.emailArea>input,
+.passwordArea>input {
+    width: 100%;
+    height: 23px;
+    padding: 3px;
+    outline-color: #4a204086;
+}
+
+.loginBottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.loginButton {
+    background-color: #4A2040;
+    color: white;
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.loginButton:hover {
+    background-color: #5e3754;
+}
+
+.loginButton:active {
+    background-color: #9F6BA0;
+}
+
+#errMsg {
+    background-color: #f6b8ad;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    border-radius: 5px;
+}
