@@ -2,8 +2,10 @@ const router = require('express').Router()
 const loginModel = require('../models/loginModel')
 const bcrypt = require('bcrypt')
 
+require('dotenv').config()
+
 router.get('/', (req, res) => {
-    res.render('login', { layout: 'loginLayout', title: 'Login', error: req.session.error, msg: req.session.msg })
+    res.render('login', { layout: 'loginLayout', title: 'Login', google_client_id: process.env.GOOGLE_CLIENT_ID, error: req.session.error, msg: req.session.msg })
     if (req.session.error || req.session.msg) {
         delete req.session.error
         delete req.session.msg
@@ -11,9 +13,36 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const { email, password } = req.body
-
     try {
+        const userData = await (async () => {
+            if (req.body.credential) {
+                if (!req.cookies.g_csrf_token) {
+                    throw new Error('No CSRF token in Cookie')
+                }
+                if (!req.body.g_csrf_token) {
+                    throw new Error('No CSRF token in Post body')
+                }
+                if (req.cookies.g_csrf_token != req.body.g_csrf_token) {
+                    throw new Error('Failed to verify double submit cookie')
+                }
+
+                const { OAuth2Client } = require('google-auth-library');
+                const client = new OAuth2Client();
+
+                const ticket = await client.verifyIdToken({
+                    idToken: req.body.credential,
+                    audience: process.env.GOOGLE_CLIENT_ID,
+                });
+
+                const payload = ticket.getPayload();
+                return { 'email': payload.email, 'password': payload.sub }
+            }
+
+            return req.body
+        })()
+
+        const { email, password } = userData
+
         const user = await loginModel.findOne({ email })
 
         if (user) {
@@ -21,21 +50,18 @@ router.post('/', async (req, res) => {
 
             if (compareResponse) {
                 req.session.auth = email
-                res.redirect('/')
-            } else {
-                req.session.error = true
-                req.session.msg = 'Email address or password is invalid'
-                res.redirect('/login')
+                return res.redirect('/')
             }
-        } else {
-            req.session.error = true
-            req.session.msg = 'Email address or password is invalid'
-            res.redirect('/login')
         }
+
+        req.session.error = true
+        req.session.msg = 'Email address or password is invalid'
+        res.redirect('/login')
     } catch (err) {
         req.session.error = true
         req.session.msg = 'A error occur, Please try again'
-        console.log(err)
+        console.error(err)
+        res.redirect('/login')
     }
 })
 

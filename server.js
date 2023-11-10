@@ -17,9 +17,9 @@ mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGOD
         console.log(err)
     })
 
-const MongoStore = require('connect-mongo')
-
 const session = require('express-session')
+
+const MongoStore = require('connect-mongo')
 
 const { v4: uuidv4 } = require('uuid')
 
@@ -38,6 +38,10 @@ app.use(session({
     })
 }))
 
+const cookieParser = require('cookie-parser')
+
+app.use(cookieParser(process.env.COOKIE_SECRET))
+
 app.use(express.urlencoded({ extended: false }))
 
 const handlebars = require('express-handlebars')
@@ -48,8 +52,6 @@ app.engine('hbs', handlebars.engine({
     extname: 'hbs',
     defaultLayout: 'index'
 }));
-
-
 
 app.use(express.static('public'))
 
@@ -68,4 +70,3 @@ const logoutRouter = require(path.join(__dirname, 'routes', 'logoutRouter.js'))
 app.use('/logout', logoutRouter)
 app.use('/login', loginRouter)
 app.use('/register', registerRouter)
-

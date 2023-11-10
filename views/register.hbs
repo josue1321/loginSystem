@@ -19,7 +19,8 @@
 
         <div class="emailArea">
             <label for="email">Email Address</label>
-            <input type="email" name="email" id="email" required="true">
+            <input type="email" name="email" id="email" required="true" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+">
         </div>
         <div class="passwordArea">
             <label for="password">Password</label>
@@ -29,5 +30,12 @@
     <div class="loginBottom">
         <input type="submit" value="Sign Up" class="loginButton">
         <p>Already have a account? <a href="/login">Login now</a></p>
+
+        <div id="g_id_onload" data-client_id={{google_client_id}} data-context="signup" data-ux_mode="popup"
+            data-login_uri="/register" data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_black"
+            data-text="signup_with" data-size="large" data-logo_alignment="left">
+        </div>
     </div>
 </form>
