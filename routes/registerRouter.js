@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 require('dotenv').config()
 
 router.get('/', (req, res) => {
+    if (req.session.auth) { return res.redirect('/') }
     res.render('register', { layout: 'loginLayout', title: 'Register', google_client_id: process.env.GOOGLE_CLIENT_ID, error: req.session.error, msg: req.session.msg })
     if (req.session.error || req.session.msg) {
         delete req.session.error
@@ -43,6 +44,12 @@ router.post('/', async (req, res) => {
 
         const { email, password } = userData
 
+
+        if (await loginModel.findOne({ email })) {
+            req.session.error = true
+            req.session.msg = 'This email is already registered. Please try a different email or sign in'
+            return res.redirect('/register')
+        }
 
         bcrypt.hash(password, 10, (err, hash) => {
             if (err) {

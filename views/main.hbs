@@ -1,3 +1,8 @@
-<h2>Hello {{user}}</h2>
-<p>You are now logged and can use the website</p>
-<a href="/logout"><input type="button" value="Logout"></a>
+<div class="accountStatus">
+    <h2>Hello {{user}}</h2>
+    <p>You are now logged in and can use the website</p>
+    <div class="buttonContainer">
+        <a href="/logout" class="actionButton">Logout</a>
+        <a href="/delete" class="actionButton">Delete account</a>
+    </div>
+</div>

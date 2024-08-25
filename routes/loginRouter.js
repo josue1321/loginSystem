@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 require('dotenv').config()
 
 router.get('/', (req, res) => {
+    if (req.session.auth) { return res.redirect('/') }
     res.render('login', { layout: 'loginLayout', title: 'Login', google_client_id: process.env.GOOGLE_CLIENT_ID, error: req.session.error, msg: req.session.msg })
     if (req.session.error || req.session.msg) {
         delete req.session.error
@@ -56,7 +57,7 @@ router.post('/', async (req, res) => {
 
         req.session.error = true
         req.session.msg = 'Email address or password is invalid'
-        res.redirect('/login')
+        setTimeout(() => res.redirect('/login'), 50)
     } catch (err) {
         req.session.error = true
         req.session.msg = 'A error occur, Please try again'

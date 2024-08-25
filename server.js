@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const mongoose = require('mongoose')
 
-mongoose.connect(`mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@login.j6z8xzc.mongodb.net/?retryWrites=true&w=majority`)
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => {
         console.log('Connected to the database')
         app.listen(3000, () => {
@@ -66,7 +66,9 @@ app.get('/', (req, res) => {
 const loginRouter = require(path.join(__dirname, 'routes', 'loginRouter.js'))
 const registerRouter = require(path.join(__dirname, 'routes', 'registerRouter.js'))
 const logoutRouter = require(path.join(__dirname, 'routes', 'logoutRouter.js'))
+const deleteRouter = require(path.join(__dirname, 'routes', 'deleteRouter.js'))
 
-app.use('/logout', logoutRouter)
 app.use('/login', loginRouter)
 app.use('/register', registerRouter)
+app.use('/logout', logoutRouter)
+app.use('/delete', deleteRouter)

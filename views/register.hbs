@@ -1,7 +1,7 @@
 <form action="/register" method="post">
     <div class="loginTop">
-        <h1>Sign Up</h1>
-        <p>Insert a email address and password to subscribe</p>
+        <h1>Create Your Account</h1>
+        <p>Enter your email and choose a password to sign up.</p>
     </div>
     <div class="loginMiddle">
 
@@ -18,18 +18,22 @@
         {{/if}}
 
         <div class="emailArea">
+            <input type="email" name="email" id="email" class="input" autocomplete="off" required="true"
+                pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/">
+            <span class="highlight"></span>
+            <span class="bar"></span>
             <label for="email">Email Address</label>
-            <input type="email" name="email" id="email" required="true" pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-">
         </div>
         <div class="passwordArea">
+            <input type="password" name="password" id="password" class="input" autocomplete="off" required="true">
+            <span class="highlight"></span>
+            <span class="bar"></span>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" required="true">
         </div>
     </div>
     <div class="loginBottom">
         <input type="submit" value="Sign Up" class="loginButton">
-        <p>Already have a account? <a href="/login">Login now</a></p>
+        <p>Already have a account? <a href="/login">Sign in now</a></p>
 
         <div id="g_id_onload" data-client_id={{google_client_id}} data-context="signup" data-ux_mode="popup"
             data-login_uri="/register" data-auto_prompt="false">

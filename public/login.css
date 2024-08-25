@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-
 * {
     margin: 0;
     padding: 0;
@@ -8,13 +7,10 @@
 }
 
 body {
-    background: rgb(200, 128, 183);
-    background: linear-gradient(90deg, rgba(200, 128, 183, 1) 0%, rgba(236, 157, 237, 1) 50%, rgba(245, 204, 232, 1) 100%);
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-content: center;
     align-items: center;
 }
 
@@ -24,9 +20,10 @@ form {
     flex-direction: column;
     justify-content: space-evenly;
     width: 400px;
-    height: 60vh;
+    height: 50vh;
     padding: 30px;
     border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
 .loginTop {
@@ -48,17 +45,98 @@ form {
 
 .emailArea,
 .passwordArea {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    position: relative;
 }
 
-.emailArea>input,
-.passwordArea>input {
-    width: 100%;
-    height: 23px;
-    padding: 3px;
-    outline-color: #4a204086;
+.input {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 375px;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+}
+
+.input:focus {
+    outline: none;
+}
+
+label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.input:focus~label,
+.input:valid~label {
+    top: -20px;
+    font-size: 14px;
+    color: #4a204086;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 390px;
+}
+
+.bar:before,
+.bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #4a204086;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+
+.input:focus~.bar:before,
+.input:focus~.bar:after {
+    width: 50%;
+}
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 200px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.input:focus~.highlight {
+    animation: inputHighlighter 0.3s ease;
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #4a204086;
+    }
+
+    to {
+        width: 0;
+        background: transparent;
+    }
 }
 
 .loginBottom {
@@ -66,6 +144,20 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+}
+
+.loginBottom a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4A2040;
+}
+
+.loginBottom a:hover {
+    color: #744468;
+}
+
+.loginBottom a:active {
+    color: #9F6BA0;
 }
 
 .loginButton {
