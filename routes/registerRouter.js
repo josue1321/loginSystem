@@ -44,7 +44,6 @@ router.post('/', async (req, res) => {
 
         const { email, password } = userData
 
-
         if (await loginModel.findOne({ email })) {
             req.session.error = true
             req.session.msg = 'This email is already registered. Please try a different email or sign in'

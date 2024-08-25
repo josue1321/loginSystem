@@ -28,5 +28,13 @@
     </div>
     <div class="loginBottom">
         <input type="submit" value="Delete Account" class="loginButton">
+
+        <p style="font-weight: bold;">or confirm with your google account</p>
+        <div id="g_id_onload" data-client_id={{google_client_id}} data-context="signin" data-ux_mode="popup"
+            data-login_uri="/delete" data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_black"
+            data-text="signin_with" data-size="large" data-logo_alignment="left">
+        </div>
     </div>
 </form>
