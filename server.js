@@ -33,6 +33,12 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: false },
     store: MongoStore.create({
+        clientPromise: new Promise((resolve) => {
+            mongoose.connection.on("connected", () => {
+                const client = mongoose.connection.getClient();
+                resolve(client);
+            });
+        }),
         client: mongoose.connection.getClient(),
         dbName: process.env.DBNAME,
     })
